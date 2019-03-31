@@ -1,11 +1,11 @@
  Page 78
   seção 3.3
-  3.3.2
-  a) L = { w ϵ ∑ = (a, b) | w comece e termine com o símbolo (a)}
-  b) L = { w ϵ ∑ = (a, b) | w contenha vários ou nenhum símbolo  (a) ou/e (b)}
-  c) L = { w ϵ ∑ = (a, b) | w contenha pelo menos um símbolo (a) e termine  com uma das combinações de ∑ }
-  d) L = { w ϵ ∑ = (a, b) | w contenha várias ou nenhuma subcadeia ba}
-  !!e) 
+  Exercício 3.3.2
+   a) L = { w ϵ ∑ = (a, b) | w comece e termine com o símbolo (a)}
+   b) L = { w ϵ ∑ = (a, b) | w contenha vários ou nenhum símbolo  (a) ou/e (b)}
+   c) L = { w ϵ ∑ = (a, b) | w contenha pelo menos um símbolo (a) e termine  com uma das combinações de ∑ }
+   d) L = { w ϵ ∑ = (a, b) | w contenha várias ou nenhuma subcadeia ba}
+   !!e) 
 
 
 
