@@ -1,7 +1,11 @@
 %{
 #include <stdio.h>
+#include <string.h>
 
 #define STACK_SIZE 2048
+
+#define TRUE 1
+#define FALSE 0
 
 enum TokenType {
     NUM     = 999,
@@ -25,7 +29,9 @@ enum TokenType {
     PMB     = 981,
     PME     = 980,
     SPR     = 979,
-    UKW     = 978
+    WHL     = 978,
+    RET     = 977,
+    UKW     = 976
 };
 
 typedef struct {
@@ -36,12 +42,15 @@ typedef struct {
 Token stack[STACK_SIZE];
 int top = 0;
 
-void put(int, char *);
+int put(int, char *);
+void printStack(Token *, int);
 %}
 
 WHITESPACE [ \n\r\t]+
 VAR \$"_"*[a-zA-Z0-9]+[a-zA-Z0-9_]*
 FUN "func ""_"*[a-zA-Z]+[a-zA-Z0-9_]*
+WHL "while"
+RET "return"
 NUM [0-9]+
 
 %%
@@ -49,6 +58,8 @@ NUM [0-9]+
 {FUN}   {return FUN;}
 {WHITESPACE}    /* Ignore */
 {VAR}   {return VAR;}
+{WHL}   {return WHL;}
+{RET}   {return RET;}
 "="     {return ASG;}
 "+"     {return ADD;}
 "-"     {return SUB;}
@@ -83,8 +94,31 @@ int main(int argc, char **argv)
     {
         put(tok, yytext);
     }
+
+    printStack(stack, top);
+    return 0;
 }
 
-void put(int type, char *symbol) {
-    printf("Type: %d\tSymbol: %s\n", type, symbol);
+int put(int type, char *symbol) 
+{
+    //printf("Type: %d\tSymbol: %s\n", type, symbol);
+    Token tok;
+    tok.type = type;
+    strcpy(tok.symbol, symbol);
+    
+    if (top < STACK_SIZE) {
+        stack[top++] = tok;
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+void printStack(Token tokens[], int size)
+{
+    int i;
+
+    for (i = 0; i < size; i++) {
+        printf("Type: %d\tSymbol: %s\n", tokens[i].type, tokens[i].symbol);
+    }
 }

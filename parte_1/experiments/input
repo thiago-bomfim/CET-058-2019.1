@@ -1,3 +1,9 @@
 func foo() {
-    $var = 5 + 1;
+    $var = 0;
+
+    while ($var < 5) {
+        $var = $var + 1;
+    }
+
+    return $var;
 }
