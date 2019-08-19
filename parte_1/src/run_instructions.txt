@@ -1,0 +1,5 @@
+# Compiler Code
+    flex scanner.l && gcc lex.yy.c -o scanner
+
+# Run Code
+    ./scanner < input
