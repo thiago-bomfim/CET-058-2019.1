@@ -1,0 +1,8 @@
+# Compiler Code
+    make
+
+# Run Code
+    ./parser.x
+
+# Input
+    2*3+4
