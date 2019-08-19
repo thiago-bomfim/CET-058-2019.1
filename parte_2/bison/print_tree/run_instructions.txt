@@ -1,0 +1,11 @@
+# Compiler Code
+    make
+
+# Run Code
+    ./parser.x
+
+# Input
+    2*3+4
+
+# Output is
+    (+)direita>(4)direita>***esquerda>***esquerda>(*)direita>(3)direita>***esquerda>***esquerda>(2)direita>***esquerda>***
