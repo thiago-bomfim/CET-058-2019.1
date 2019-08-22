@@ -47,7 +47,7 @@ void printStack(Token *, int);
 %}
 
 WHITESPACE [ \n\r\t]+
-VAR \$"_"*[a-zA-Z0-9]+[a-zA-Z0-9_]*
+VAR \$(([a-zA-Z]+)|(\_[a-zA-Z]+))
 FUN "func ""_"*[a-zA-Z]+[a-zA-Z0-9_]*
 WHL "while"
 RET "return"

@@ -1,9 +1,14 @@
-func foo() {
-    $var = 0;
+1 - 2
+8 + 9
+2 / 6
+9 * 8
 
-    while ($var < 5) {
-        $var = $var + 1;
-    }
+$x + $y
+$x / $y
+$x * $y
+$x - $y
 
-    return $var;
-}
+
+
+
+func foo() { $var = 0; while ($var < 5) { $var = $var + 1; } return $var;}

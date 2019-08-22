@@ -35,8 +35,6 @@ No* novo_no(char *, No**, int);
 %token SUB
 %token MUL
 %token DIV
-%token VARIAVEL
-%token LOGICAS
 %token APAR
 %token FPAR
 %token EOL
@@ -45,15 +43,11 @@ No* novo_no(char *, No**, int);
 %type<no> termo
 %type<no> fator
 %type<no> exp
-%type<no> operador
-
 %type<simbolo> NUM
 %type<simbolo> MUL
 %type<simbolo> DIV
 %type<simbolo> SUB
 %type<simbolo> ADD
-%type<simbolo> VARIAVEL
-%type<simbolo> LOGICAS
 
 
 %%
@@ -66,25 +60,20 @@ exp: fator
     | exp ADD fator {
         No** filhos = allocar_filhos(3);
         filhos[0] = $1;
-        filhos[1] = novo_no("+", NULL, 0);
+        filhos[1] = allocar_no();
+        filhos[1]->token[0] = '+';
+        filhos[1]->num_filhos = 0;
         filhos[2] = $3;
-
-        $$ = novo_no("exp", filhos, 3);
+        $$ = novo_no("<expr>", filhos, 2);
     }
     | exp SUB fator {
         No** filhos = allocar_filhos(3);
         filhos[0] = $1;
-        filhos[1] = novo_no("-", NULL, 0);
+        filhos[1] = allocar_no();
+        filhos[1]->token[0] = '-';
+        filhos[1]->num_filhos = 0;
         filhos[2] = $3;
-
-        $$ = novo_no("exp", filhos, 3);
-    }
-    | exp operador fator {
-        No** filhos = (No**) malloc(sizeof(No*)*3);
-        filhos[0] = $1;
-        filhos[1] = $2;
-        filhos[2] = $3;
-        $$ = novo_no("exp", filhos, 3);
+        $$ = novo_no("<expr>", filhos, 2);
     }
     ;
 
@@ -92,24 +81,24 @@ fator: termo
     | fator MUL termo {
         No** filhos = allocar_filhos(3);
         filhos[0] = $1;
-        filhos[1] = novo_no("*", NULL, 0);
+        filhos[1] = allocar_no();
+        filhos[1]->token[0] = '*';
+        filhos[1]->num_filhos = 0;
         filhos[2] = $3;
-
-        $$ = novo_no("fator", filhos, 3);
+        $$ = novo_no("<expr>", filhos, 2);
     }
     | fator DIV termo {
         No** filhos = allocar_filhos(3);
         filhos[0] = $1;
-        filhos[1] = novo_no("/", NULL, 0);
+        filhos[1] = allocar_no();
+        filhos[1]->token[0] = '/';
+        filhos[1]->num_filhos = 0;
         filhos[2] = $3;
-
-        $$ = novo_no("fator", filhos, 3);
+        $$ = novo_no("<expr>", filhos, 2);
     }
     ;
-operador: LOGICAS { $$ = novo_no($1, NULL, 0); }
 
 termo: NUM { $$ = novo_no($1, NULL, 0); }
-    | VARIAVEL { $$ = novo_no($1, NULL, 0); }
 
 %%
 
@@ -139,17 +128,25 @@ No* novo_no(char* token, No** filhos, int num_filhos) {
 }
 
 void imprimir_arvore(No* raiz) {
-   if(raiz == NULL) { printf("***"); return; }
-    printf("[%s", raiz->token);
-    if (raiz->filhos != NULL)
-    {
-        imprimir_arvore(raiz->filhos[0]);
-        imprimir_arvore(raiz->filhos[1]);
-        imprimir_arvore(raiz->filhos[2]);
-        // printf("]");
-    }
-    printf("]");
+    int i;
 
+    if(raiz == NULL) {
+        printf("***"); 
+        return;
+    }
+    
+    printf("(%s)", raiz->token);
+
+    // Imprime filhos
+    printf("filhos>");
+
+    if (raiz->num_filhos > 0) {
+        for (i = 0; i < raiz->num_filhos; i++) {
+            imprimir_arvore(raiz->filhos[i]);
+        }
+    } else {
+        printf("<vazio>");
+    }
 }
 
 int main(int argc, char** argv) {

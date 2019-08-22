@@ -11,9 +11,8 @@
 %}
 
 /* Definições */
-NUMBER      [0-9]+
-VARIAVEL    \$(([a-zA-Z]+)|(\_[a-zA-Z]+))
-LOGICAS     ">"|"<"|"<="|">="
+NUMBER [0-9]+
+
 
 /* Início das Regras */
 %%
@@ -24,8 +23,6 @@ LOGICAS     ">"|"<"|"<="|">="
 "\-"         {return SUB;}
 "\("         {return APAR;}
 "\)"         {return FPAR;}
-{VARIAVEL}    {strncpy(yylval.simbolo, yytext, 50); return VARIAVEL;}
-{LOGICAS}    {strncpy(yylval.simbolo, yytext, 50); return LOGICAS;}
 "\n"         {return EOL;}
 
 %%
