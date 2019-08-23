@@ -60,7 +60,7 @@ No* novo_no(char *, No**, int);
 /* Regras de Sintaxe */
 
 calc:
-    | calc exp EOL { imprimir_arvore($2); }
+    | calc exp EOL { imprimir_arvore($2); printf("\n\n"); }
 
 exp: fator                
     | exp ADD fator {
@@ -107,9 +107,11 @@ fator: termo
     }
     ;
 operador: LOGICAS { $$ = novo_no($1, NULL, 0); }
+    ;
 
 termo: NUM { $$ = novo_no($1, NULL, 0); }
     | VARIAVEL { $$ = novo_no($1, NULL, 0); }
+    ;
 
 %%
 
